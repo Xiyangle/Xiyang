@@ -1,9 +1,7 @@
-# QuantumultX 
-
-###### ***By Xiyang***
+###### ***Xiyang***
 
 
-
+```javascript
 1、git clone https://gitee.com/Xiyang7/QuantumultX.git
 
 2、git pull (拉取代码)
@@ -16,7 +14,7 @@
 
 6、git push -u origin master   (同步到服务器)
 
-
+```
 
 #### 简易的命令行入门教程:
 
