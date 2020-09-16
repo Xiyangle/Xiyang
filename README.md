@@ -1,14 +1,14 @@
-###### ***Xiyang***
+### Git常用操作命令:
 
 
-```javascript
-1、git clone https://gitee.com/Xiyang7/QuantumultX.git
+```shell
+1、git clone https://gitee.com/Xiyang7/QuantumultX.git (下载项目)
 
 2、git pull (拉取代码)
 
 3、git add . (暂存需要提交的文件)
 
-4、 git status （查看当前项目中哪些文件被修改过）
+4、git status （查看当前项目中哪些文件被修改过）
 
 5、git commit -m '备注'   (提交已暂存的文件)
 
@@ -16,18 +16,18 @@
 
 ```
 
-#### 简易的命令行入门教程:
+#### 简易的Git命令行入门教程:
 
 Git 全局设置:
 
-```javascript
+```shell
 git config --global user.name "Xiyang"
 git config --global user.email "94444455@qq.com"
 ```
 
 创建 git 仓库:
 
-```javascript
+```shell
 mkdir ah-ah
 cd ah-ah
 git init
@@ -41,7 +41,7 @@ git push -u origin master
 
 已有仓库?
 
-```javascript
+```shell
 cd existing_git_repo
 git remote add origin https://gitee.com/Xiyang7/ah-ah.git
 git branch -M master
