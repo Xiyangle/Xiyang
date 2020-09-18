@@ -1,7 +1,14 @@
 ### Git常用操作命令:
 
 
-```shell
+```javascript
+{	//本地命令迁移仓库使用
+    //移除gitee远端（不移除也可以，但github要改名不能也叫origin）
+    git remote remove origin
+    //添加github远端
+    git remote add origin https://gitee.com/Xiyang7/QuantumultX.git
+}
+
 1、git clone https://gitee.com/Xiyang7/QuantumultX.git (下载项目)
 
 2、git pull (拉取代码)
