@@ -20,6 +20,9 @@
 5、git commit -m '备注'   (提交已暂存的文件)
 
 6、git push -u origin master   (同步到服务器)
+    
+7、若报错，请如下指令之后便会正常:
+   git push -u origin master -f  (强制push)
 
 ```
 
