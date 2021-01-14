@@ -11,6 +11,8 @@
 
 1、git clone https://gitee.com/Xiyang7/QuantumultX.git (下载项目)
 
+1.5、git clone -b (分支名称) https://gitee.com/Xiyang7/QuantumultX.git (下载分支项目)
+
 2、git pull (拉取代码)
 
 3、git add . (暂存需要提交的文件)
