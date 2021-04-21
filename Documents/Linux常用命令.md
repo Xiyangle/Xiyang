@@ -14,8 +14,6 @@
 8、reboot   重启vps
 ````
 
-
-
 ### 所用到的命令
 
 ```shell
@@ -30,9 +28,7 @@ esc  回到命令模式
 :wq  保存并退出
 ```
 
-
-
-##### 注意Ubuntu系统下：
+### 注意Ubuntu系统下：
 
 ###### 开放所有端口
 
@@ -43,8 +39,6 @@ iptables -P OUTPUT ACCEPT
 iptables -F
 ```
 
-
-
 ###### Ubuntu镜像默认设置了Iptable规则，关闭它
 
 ```shell
@@ -52,5 +46,19 @@ apt-get purge netfilter-persistent
 reboot
 或者强制删除
 rm -rf /etc/iptables && reboot
+```
+
+###### 启用ubuntu自带bbr：      
+
+```shell
+sudo bash -c 'echo "net.core.default_qdisc=fq" >> /etc/sysctl.conf'
+sudo bash -c 'echo "net.ipv4.tcp_congestion_control=bbr" >> /etc/sysctl.conf'
+sysctl -p
+```
+
+###### 查看bbr是否开启成功
+
+```shell
+lsmod | grep bbr
 ```
 
