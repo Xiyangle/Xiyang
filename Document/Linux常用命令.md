@@ -62,9 +62,10 @@ sysctl -p
 lsmod | grep bbr
 ```
 
-###### BBR和锐速安装脚本
+###### CentOs关闭防火墙
 
 ```shell
-wget -N --no-check-certificate "https://raw.githubusercontent.com/chiakge/Linux-NetSpeed/master/tcp.sh" && chmod +x tcp.sh && ./tcp.sh
+systemctl stop firewalld.service
+systemctl disable firewalld.service
 ```
 
