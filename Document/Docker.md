@@ -7,5 +7,7 @@ docker exec -it jd_scripts /bin/sh
 docker-compose up -d
 3、停止命令
 docker-compose stop
+4、更新node版本
+apk add nodejs-current
 ```
 
