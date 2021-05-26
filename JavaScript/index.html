@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="./js/vue.js"></script>
+    <script src="./js/axios.min.js"></script>
+    <link rel="stylesheet" href="./css/style.css">
+</head>
+<body>
+
+<div id="app">
+    <h1>{{message}}</h1>
+    <h3 :title="time">
+        鼠标悬停几秒钟查看此处动态绑定的提示信息！
+    </h3>
+    <div v-if="show">
+        现在你看到我了
+    </div>
+</div>
+
+
+
+</body>
+</html>
+
+<script>
+var app = new Vue({
+    el: '#app',
+    data() {
+        return {
+            message: 'Hello Vue!',
+            time: '页面加载于 ' + new Date().toLocaleString(),
+            show: true
+        }
+    },
+    mounted() {
+        this.requestTest()
+    },
+    methods:{
+        requestTest() {
+            axios.get('https://api.gugudata.com/news/joke',{
+                params: {
+                    appkey: 'YOUR_APPKEY',
+                    type: 'YOUR_VALUE'
+                },
+                headers: {
+                    token: '888'
+                }
+            }).then(res => {
+                console.log(res)
+            })
+        }
+    }
+})
+
+</script>
