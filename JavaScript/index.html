@@ -3,7 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
-    <script src="./js/vue.js"></script>
+<!--    <script src="./js/vue.js"></script>-->
+    <script src="https://unpkg.com/vue@next"></script>
     <script src="./js/axios.min.js"></script>
     <link rel="stylesheet" href="./css/style.css">
 </head>
@@ -25,33 +26,20 @@
 </html>
 
 <script>
-var app = new Vue({
-    el: '#app',
+const app = {
     data() {
         return {
             message: 'Hello Vue!',
             time: '页面加载于 ' + new Date().toLocaleString(),
-            show: true
+            show: false
         }
     },
     mounted() {
-        this.requestTest()
+
     },
     methods:{
-        requestTest() {
-            axios.get('https://api.gugudata.com/news/joke',{
-                params: {
-                    appkey: 'YOUR_APPKEY',
-                    type: 'YOUR_VALUE'
-                },
-                headers: {
-                    token: '888'
-                }
-            }).then(res => {
-                console.log(res)
-            })
-        }
-    }
-})
 
+    }
+}
+Vue.createApp(app).mount('#app')
 </script>
