@@ -2,22 +2,45 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0" />
     <title>Title</title>
-<!--    <script src="./js/vue.js"></script>-->
-    <script src="https://unpkg.com/vue@next"></script>
-    <script src="./js/axios.min.js"></script>
+    <script src="./js/vue.js"></script>
+    <!-- 引入样式 -->
+    <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
+    <!-- 引入组件库 -->
+    <script src="https://unpkg.com/element-ui/lib/index.js"></script>
     <link rel="stylesheet" href="./css/style.css">
 </head>
 <body>
 
 <div id="app">
-    <h1>{{message}}</h1>
+    <div style="display: flex;align-items: center">
+        <h1>{{message}}</h1>
+        <el-switch @change="switchChange" v-model="show" active-color="#13ce66" inactive-color="#ff4949"></el-switch>
+    </div>
+    <el-button :plain="true" @click="open">打开消息提示</el-button>
     <h3 :title="time">
         鼠标悬停几秒钟查看此处动态绑定的提示信息！
     </h3>
     <div v-if="show">
         现在你看到我了
     </div>
+
+    <hr style="width: 100%;"/>
+    <div style="width: 100%;margin: 10px 0;">
+        <el-alert title="成功提示的文案" type="success"></el-alert>
+    </div>
+
+    <transition name="el-fade-in-linear">
+        <div v-show="show" class="transition-box">.el-fade-in-linear</div>
+    </transition>
+
+    <el-date-picker
+            v-model="value"
+            type="datetime"
+            placeholder="选择日期时间">
+    </el-date-picker>
+
 </div>
 
 
@@ -26,20 +49,30 @@
 </html>
 
 <script>
-const app = {
-    data() {
-        return {
-            message: 'Hello Vue!',
-            time: '页面加载于 ' + new Date().toLocaleString(),
-            show: false
+    new Vue({
+        el: '#app',
+        data() {
+            return {
+                message: 'Hello Vue!',
+                time: '页面加载于 ' + new Date().toLocaleString(),
+                show: true,
+                value: ''
+            }
+        },
+        mounted() {
+
+        },
+        methods:{
+            switchChange(e) {
+                this.show = e
+            },
+            open() {
+                this.$message({
+                    message: '恭喜你，这是一条成功消息',
+                    type: 'success'
+                });
+            }
         }
-    },
-    mounted() {
+    })
 
-    },
-    methods:{
-
-    }
-}
-Vue.createApp(app).mount('#app')
 </script>
