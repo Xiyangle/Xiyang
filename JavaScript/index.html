@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width,initial-scale=1.0" />
-    <title>Title</title>
+    <title>index</title>
     <script src="./js/vue.js"></script>
     <!-- 引入样式 -->
     <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
@@ -19,6 +19,7 @@
         <el-switch @change="switchChange" v-model="show" active-color="#13ce66" inactive-color="#ff4949"></el-switch>
     </div>
     <el-button :plain="true" @click="open">打开消息提示</el-button>
+    <el-button :plain="true" @click="openUrl">打开新页面</el-button>
     <h3 :title="time">
         鼠标悬停几秒钟查看此处动态绑定的提示信息！
     </h3>
@@ -41,6 +42,10 @@
             placeholder="选择日期时间">
     </el-date-picker>
 
+    <div style="margin-top: 20px">
+        JS获取url参数:{{urlData}}
+    </div>
+
 </div>
 
 
@@ -56,24 +61,24 @@
                 message: 'Hello Vue!',
                 time: '页面加载于 ' + new Date().toLocaleString(),
                 show: true,
-                value: ''
+                value: '',
+                urlData: ''
             }
         },
         mounted() {
-            console.log(this.sum(10))
-        },
-        computed:{
-
+            this.urlData = this.getQueryVariable('_ijt')
         },
         methods:{
-
-
-            sum(n) {
-                if (n == 1) return 1
-                return this.sum(n - 1) + n
+            // JS获取url参数
+            getQueryVariable(variable) {
+                var query = window.location.search.substring(1);
+                var vars = query.split("&");
+                for (var i=0;i<vars.length;i++) {
+                    var pair = vars[i].split("=");
+                    if(pair[0] == variable){return pair[1];}
+                }
+                return(false);
             },
-
-
             switchChange(e) {
                 this.show = e
             },
@@ -82,6 +87,9 @@
                     message: '恭喜你，这是一条成功消息',
                     type: 'success'
                 });
+            },
+            openUrl(){
+                window.open('./home.html?token=08567c4e13ed4c608b1f001316c0e789&spmTsCode=FY10000202105310001','_self')
             }
         }
     })
