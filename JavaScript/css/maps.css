@@ -8,6 +8,7 @@ html,body {
 .time {
     width: 100%;
     display: flex;
+    padding: 10px;
 }
 .timeNode {
     width: 20%;

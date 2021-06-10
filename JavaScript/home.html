@@ -10,78 +10,94 @@
     <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
     <!-- 引入组件库 -->
     <script src="https://unpkg.com/element-ui/lib/index.js"></script>
+    <style>
+        @font-face {
+            font-family: 'iconfont';
+            src: url("./css/MaShanZheng-Regular.ttf");
+        }
+        .tips {
+            font-family: iconfont;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+    </style>
 </head>
 <body>
     <div id="app" style="padding: 20px;">
-        <h3>JS获取url参数: {{token}}</h3>
-        <h3>JS获取url参数: {{spmShipnum}}</h3>
-        <el-table
-                :data="tableData"
-                style="width: 100%">
-            <el-table-column
-                    prop="orderCode"
-                    label="订单号"
-                    width="180">
-            </el-table-column>
-            <el-table-column
-                    prop="lpCode"
-                    label="LP号"
-                    width="180">
-            </el-table-column>
-            <el-table-column
-                    prop="orderStatusName"
-                    label="订单状态"
-                    width="100">
-            </el-table-column>
-            <el-table-column
-                    prop="exDeliveryDate"
-                    label="预计发货日期"
-                    width="180">
-            </el-table-column>
-            <el-table-column
-                    prop="latestArrivelDate"
-                    label="最晚到货时间"
-                    width="180">
-            </el-table-column>
-            <el-table-column
-                    prop="shipper"
-                    label="发货方联系人"
-                    width="180">
-            </el-table-column>
-            <el-table-column
-                    prop="shipAddress"
-                    label="发货地址"
-                    width="200">
-            </el-table-column>
-            <el-table-column
-                    prop="receiver"
-                    label="收货方联系人"
-                    width="180">
-            </el-table-column>
-            <el-table-column
-                    prop="receiveAddress"
-                    label="收货地址"
-                    width="200">
-            </el-table-column>
+        <div class="tips" v-if="!token">
+            <h1 v-if="!token">请登录后访问</h1>
+            <h1 v-if="!spmShipnum">请输入spm发运单号</h1>
+        </div>
+        <div v-else>
+            <el-table
+                    :data="tableData"
+                    style="width: 100%">
+                <el-table-column
+                        prop="orderCode"
+                        label="订单号"
+                        width="180">
+                </el-table-column>
+                <el-table-column
+                        prop="lpCode"
+                        label="LP号"
+                        width="180">
+                </el-table-column>
+                <el-table-column
+                        prop="orderStatusName"
+                        label="订单状态"
+                        width="100">
+                </el-table-column>
+                <el-table-column
+                        prop="exDeliveryDate"
+                        label="预计发货日期"
+                        width="180">
+                </el-table-column>
+                <el-table-column
+                        prop="latestArrivelDate"
+                        label="最晚到货时间"
+                        width="180">
+                </el-table-column>
+                <el-table-column
+                        prop="shipper"
+                        label="发货方联系人"
+                        width="180">
+                </el-table-column>
+                <el-table-column
+                        prop="shipAddress"
+                        label="发货地址"
+                        width="200">
+                </el-table-column>
+                <el-table-column
+                        prop="receiver"
+                        label="收货方联系人"
+                        width="180">
+                </el-table-column>
+                <el-table-column
+                        prop="receiveAddress"
+                        label="收货地址"
+                        width="200">
+                </el-table-column>
 
-            <el-table-column
-                    label="操作">
+                <el-table-column
+                        label="操作">
                     <template slot-scope="scope">
                         <el-button @click="handleClick(scope.row)" type="text" size="small">轨迹查询</el-button>
                     </template>
-            </el-table-column>
-        </el-table>
-        <!-- 分页 -->
-        <div style="margin-top: 20px">
-            <el-pagination
-                    @size-change="handleSizeChange"
-                    @current-change="handleCurrentChange"
-                    :current-page="page"
-                    :page-sizes="[10, 20, 30, 50]"
-                    :page-size="limit"
-                    layout="total, sizes, prev, pager, next, jumper"
-                    :total="total">
-            </el-pagination>
+                </el-table-column>
+            </el-table>
+            <!-- 分页 -->
+            <div style="margin-top: 20px">
+                <el-pagination
+                        @size-change="handleSizeChange"
+                        @current-change="handleCurrentChange"
+                        :current-page="page"
+                        :page-sizes="[10, 20, 30, 50]"
+                        :page-size="limit"
+                        layout="total, sizes, prev, pager, next, jumper"
+                        :total="total">
+                </el-pagination>
+            </div>
         </div>
     </div>
 </body>

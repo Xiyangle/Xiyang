@@ -10,7 +10,8 @@ new Vue({
             lastArriverDate: '',
             exArriverDate: '',
             timeLine: [],
-            findex: 0
+            findex: 0,
+            tipsMsg: ''
         }
     },
     mounted() {
@@ -30,6 +31,10 @@ new Vue({
                 }
             }).then(res => {
                 let data = res.data
+                if (data.code !== 200) {
+                    this.tipsMsg = data.message
+                    return this.$message.error(data.message);
+                }
                 this.lastArriverDate = data.data.lastArriverDate
                 this.exArriverDate = data.data.exArriverDate
                 data.data.nodeList.forEach(item => {
@@ -41,10 +46,6 @@ new Vue({
                     }
                 }
                 this.timeLine = data.data.nodeList
-                console.log(data)
-                if (data.code !== 200) {
-                    this.$message.error(data.message);
-                }
             })
         },
         // 根据订单查询得到地图上的节点
@@ -59,9 +60,6 @@ new Vue({
                 let data = res.data
                 this.nodeList = data.data;
                 this.mapInit()
-                if (data.code !== 200) {
-                    this.$message.error(data.message);
-                }
             })
         },
         // 地图初始化事件
