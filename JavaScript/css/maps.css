@@ -1,0 +1,69 @@
+@font-face {
+    font-family: 'iconfont';
+    src: url("./MaShanZheng-Regular.ttf");
+}
+html,body {
+    font-family: iconfont;
+}
+.time {
+    width: 100%;
+    display: flex;
+}
+.timeNode {
+    width: 20%;
+    font-size: 16px;
+}
+.timeLine {
+    width: 80%;
+    height: 100px;
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+.lineOut {
+    flex: 1;
+}
+.line {
+    width: 100%;
+    height: 1px;
+    margin-top: 30px;
+    border-bottom: solid 3px #04c5d4
+}
+.lineIndex {
+    flex: 1;
+}
+.point {
+    width: 70px;
+}
+.point div {
+    margin: auto;
+    text-align: center;
+    padding: 3px 0 3px 0;
+}
+.point img {
+    width: 15px;
+    height: 15px;
+}
+.info_card {
+    padding: 10px;
+    border-radius: 5px;
+    box-shadow: 0px 0px 10px #E3E3E3;
+    width: 200px;
+    height: 100px;
+    background: #fff;
+    margin-top: -15px;
+    position: absolute;
+    z-index: 999;
+}
+.info_card div {
+    margin-top: 5px;
+}
+.nocom {
+    color: #999999;
+}
+.nocomL {
+    width: 100%;
+    height: 1px;
+    margin-top: 30px;
+    border-bottom: solid 3px #999999
+}

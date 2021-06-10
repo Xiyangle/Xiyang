@@ -11,12 +11,44 @@
     <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
     <!-- 引入组件库 -->
     <script src="https://unpkg.com/element-ui/lib/index.js"></script>
+    <link rel="stylesheet" href="./css/maps.css">
 </head>
 <body>
     <div id="app">
         <h3>{{orderCode}}</h3>
+        <!--时间轴区域-->
+        <div class="time">
+            <div class="timeLine">
+                <div v-for="(item,index) in timeLine" :key="index" style="flex:1;display:flex">
+                    <div :class="{lineOut:index!=0,lineIndex:index==0}" v-if="index!==0">
+                        <div v-if="findex==0" :class="{nocomL:index-1<=findex,nocomL:index-1>=findex+1}"></div>
+                        <div v-else :class="{line:index-1<=findex,nocomL:index-1>=findex+1}"></div>
+                    </div>
+                    <div class="mainInfo" @click="item.isShow=!item.isShow">
+                        <div class="point" :class="{nocom:!item.nodeTime}">
+                            <div>{{ item.wayNodeName }}</div>
+                            <div>
+                                <img :src="item.wayNodeImg" />
+                            </div>
+                            <div>{{ item.nodeTime }}</div>
+                        </div>
+                        <div class="info_card" v-if="item.isShow">
+                            <div>时间：{{ item.nodeTime }}</div>
+                            <div>地址：{{ item.address }}</div>
+                        </div>
+                    </div>
+                    <div :class="{lineOut:index!=timeLine.length-1,lineIndex:index==timeLine.length-1}">
+                        <div :class="{line:item.nodeTime,nocomL:!item.nodeTime&&index<=timeLine.length-2}"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="timeNode">
+                <div style="font-size: 13px;">最晚到货日期<br>{{ lastArriverDate }}<br></div>
+                <div style="font-size: 13px;"><br>计划到达时间<br>{{ exArriverDate }}</div>
+            </div>
+        </div>
         <!--地图轨迹区域-->
-        <div id="mapId" style="width:100%; height:1000px;"></div>
+        <div id="mapId" style="width:100%; height:700px; margin-top: 50px"></div>
     </div>
 </body>
 </html>

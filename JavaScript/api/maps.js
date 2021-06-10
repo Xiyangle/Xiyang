@@ -5,15 +5,48 @@ new Vue({
             token: '',
             nodeList: [],
             // 订单号
-            orderCode: ''
+            orderCode: '',
+            // 时间轴相关参数
+            lastArriverDate: '',
+            exArriverDate: '',
+            timeLine: [],
+            findex: 0
         }
     },
     mounted() {
         this.orderCode = this.getQueryVariable('orderCode')
         this.token = this.getQueryVariable('token')
         this.getMapNodeByOrderCode()
+        this.getTimelineByOrderCode()
     },
     methods: {
+        // 根据订单查询时间轴节点
+        getTimelineByOrderCode() {
+            axios({
+                method: 'get',
+                url: 'http://121.37.190.48:8080/Otps/api/admin/transportnode/getPCOderNodeByCode?orderCode='+this.orderCode,
+                headers: {
+                    'Authori-zation': this.token
+                }
+            }).then(res => {
+                let data = res.data
+                this.lastArriverDate = data.data.lastArriverDate
+                this.exArriverDate = data.data.exArriverDate
+                data.data.nodeList.forEach(item => {
+                    item.isShow = false
+                })
+                for (var i = 0; i < data.data.nodeList.length; i++) {
+                    if (data.data.nodeList[i].nodeTime != "") {
+                        this.findex=i
+                    }
+                }
+                this.timeLine = data.data.nodeList
+                console.log(data)
+                if (data.code !== 200) {
+                    this.$message.error(data.message);
+                }
+            })
+        },
         // 根据订单查询得到地图上的节点
         getMapNodeByOrderCode() {
             axios({
