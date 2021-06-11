@@ -25,7 +25,7 @@ new Vue({
         getTimelineByOrderCode() {
             axios({
                 method: 'get',
-                url: 'http://121.37.190.48:8080/Otps/api/admin/transportnode/getPCOderNodeByCode?orderCode='+this.orderCode,
+                url: 'https://otps.anji-ceva.com/Otps/api/admin/transportnode/getPCOderNodeByCode?orderCode='+this.orderCode,
                 headers: {
                     'Authori-zation': this.token
                 }
@@ -52,7 +52,7 @@ new Vue({
         getMapNodeByOrderCode() {
             axios({
                 method: 'get',
-                url: 'http://121.37.190.48:8080/Otps/api/admin/transportnode/getMapNodeOrder?orderCode='+this.orderCode,
+                url: 'https://otps.anji-ceva.com/Otps/api/admin/transportnode/getMapNodeOrder?orderCode='+this.orderCode,
                 headers: {
                     'Authori-zation': this.token
                 }

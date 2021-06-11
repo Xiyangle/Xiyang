@@ -21,7 +21,7 @@ new Vue({
         getSpmOrderList() {
             axios({
                 method: 'post',
-                url: 'http://121.37.190.48:8080/Otps/api/material/order/getSpmOrderList?limit='+this.limit+'&page='+this.page,
+                url: 'https://otps.anji-ceva.com/Otps/api/material/order/getSpmOrderList?limit='+this.limit+'&page='+this.page,
                 data: {
                     spmShipnum: this.spmShipnum
                 },
@@ -34,6 +34,7 @@ new Vue({
                     this.tableData = data.data.list
                     this.total = data.data.total
                 } else {
+                    this.token = false
                     this.$message.error(data.message);
                 }
             });

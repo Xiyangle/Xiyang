@@ -3,104 +3,95 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width,initial-scale=1.0" />
-    <title>Home</title>
+    <title>index</title>
     <script src="./js/vue.js"></script>
-    <script src="./js/axios.min.js"></script>
     <!-- 引入样式 -->
     <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
     <!-- 引入组件库 -->
     <script src="https://unpkg.com/element-ui/lib/index.js"></script>
-    <style>
-        @font-face {
-            font-family: 'iconfont';
-            src: url("./css/MaShanZheng-Regular.ttf");
-        }
-        .tips {
-            font-family: iconfont;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
-    </style>
+    <link rel="stylesheet" href="./css/style.css">
 </head>
 <body>
-    <div id="app" style="padding: 20px;">
-        <div class="tips" v-if="!token">
-            <h1 v-if="!token">请登录后访问</h1>
-            <h1 v-if="!spmShipnum">请输入spm发运单号</h1>
-        </div>
-        <div v-else>
-            <el-table
-                    :data="tableData"
-                    style="width: 100%">
-                <el-table-column
-                        prop="orderCode"
-                        label="订单号"
-                        width="180">
-                </el-table-column>
-                <el-table-column
-                        prop="lpCode"
-                        label="LP号"
-                        width="180">
-                </el-table-column>
-                <el-table-column
-                        prop="orderStatusName"
-                        label="订单状态"
-                        width="100">
-                </el-table-column>
-                <el-table-column
-                        prop="exDeliveryDate"
-                        label="预计发货日期"
-                        width="180">
-                </el-table-column>
-                <el-table-column
-                        prop="latestArrivelDate"
-                        label="最晚到货时间"
-                        width="180">
-                </el-table-column>
-                <el-table-column
-                        prop="shipper"
-                        label="发货方联系人"
-                        width="180">
-                </el-table-column>
-                <el-table-column
-                        prop="shipAddress"
-                        label="发货地址"
-                        width="200">
-                </el-table-column>
-                <el-table-column
-                        prop="receiver"
-                        label="收货方联系人"
-                        width="180">
-                </el-table-column>
-                <el-table-column
-                        prop="receiveAddress"
-                        label="收货地址"
-                        width="200">
-                </el-table-column>
 
-                <el-table-column
-                        label="操作">
-                    <template slot-scope="scope">
-                        <el-button @click="handleClick(scope.row)" type="text" size="small">轨迹查询</el-button>
-                    </template>
-                </el-table-column>
-            </el-table>
-            <!-- 分页 -->
-            <div style="margin-top: 20px">
-                <el-pagination
-                        @size-change="handleSizeChange"
-                        @current-change="handleCurrentChange"
-                        :current-page="page"
-                        :page-sizes="[10, 20, 30, 50]"
-                        :page-size="limit"
-                        layout="total, sizes, prev, pager, next, jumper"
-                        :total="total">
-                </el-pagination>
-            </div>
-        </div>
+<div id="app">
+    <div style="display: flex;align-items: center">
+        <h1>{{message}}</h1>
+        <el-switch @change="switchChange" v-model="show" active-color="#13ce66" inactive-color="#ff4949"></el-switch>
     </div>
+    <el-button :plain="true" @click="open">打开消息提示</el-button>
+    <el-button :plain="true" @click="openUrl">打开新页面</el-button>
+    <h3 :title="time">
+        鼠标悬停几秒钟查看此处动态绑定的提示信息！
+    </h3>
+    <div v-if="show">
+        现在你看到我了
+    </div>
+
+    <hr style="width: 100%;"/>
+    <div style="width: 100%;margin: 10px 0;">
+        <el-alert title="成功提示的文案" type="success"></el-alert>
+    </div>
+
+    <transition name="el-fade-in-linear">
+        <div v-show="show" class="transition-box">.el-fade-in-linear</div>
+    </transition>
+
+    <el-date-picker
+            v-model="value"
+            type="datetime"
+            placeholder="选择日期时间">
+    </el-date-picker>
+
+    <div style="margin-top: 20px">
+        JS获取url参数:{{urlData}}
+    </div>
+
+</div>
+
+
+
 </body>
 </html>
-<script src="./api/home.js"></script>
 
+<script>
+    new Vue({
+        el: '#app',
+        data() {
+            return {
+                message: 'Hello Vue!',
+                time: '页面加载于 ' + new Date().toLocaleString(),
+                show: true,
+                value: '',
+                urlData: ''
+            }
+        },
+        mounted() {
+            this.urlData = this.getQueryVariable('_ijt')
+        },
+        methods:{
+            // JS获取url参数
+            getQueryVariable(variable) {
+                var query = window.location.search.substring(1);
+                var vars = query.split("&");
+                for (var i=0;i<vars.length;i++) {
+                    var pair = vars[i].split("=");
+                    if(pair[0] == variable){return pair[1];}
+                }
+                return(false);
+            },
+            switchChange(e) {
+                this.show = e
+            },
+            open() {
+                this.$message({
+                    message: '恭喜你，这是一条成功消息',
+                    type: 'success'
+                });
+            },
+            openUrl(){
+                window.open('./index.html?token=35d0417121594f8e975dbbc1f0db30f4&spmTsCode=FY10000202105310001','_self')
+            }
+        }
+    })
+
+</script>
