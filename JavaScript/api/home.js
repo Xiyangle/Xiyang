@@ -51,7 +51,7 @@ new Vue({
         },
         // 轨迹查询
         handleClick(e) {
-            window.open('./maps.html?orderCode='+e.orderCode+'&token='+this.token,'_self')
+            window.open('./maps.html?orderCode='+e.orderCode+'&token='+this.token,'_blank')
         },
         // 分页
         handleSizeChange(val) {
