@@ -33,8 +33,8 @@
 Git 全局设置:
 
 ```shell
-git config --global user.name "Xiyang"
-git config --global user.email "94444455@qq.com"
+git config --global user.name "Xiyangle"
+git config --global user.email "Xiyangle@vip.qq.com"
 ```
 
 创建 git 仓库:
