@@ -1,0 +1,20 @@
+{
+  "name": "map-orbit",
+  "version": "1.0.0",
+  "description": "",
+  "main": "main.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "html2canvas": "^1.4.1",
+    "moment": "^2.29.1",
+    "moment-duration-format": "^2.3.2"
+  },
+  "dependencies": {
+    "@amap/amap-jsapi-loader": "^1.0.1"
+  }
+}

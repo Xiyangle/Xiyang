@@ -1,0 +1,25 @@
+{
+	"pages": [ //pages数组中第一项表示应用启动页，参考：https://uniapp.dcloud.io/collocation/pages
+		{
+			"path": "pages/map-orbit/map-orbit",
+			"style": {
+				"navigationBarTitleText": "轨迹地图",
+				"navigationStyle":"custom"
+			}
+
+		},
+		{
+			"path": "pages/car-status-form/car-status-form",
+			"style": {
+				"navigationBarTitleText": "运输状态信息提交",
+				"enablePullDownRefresh": false
+			}
+		}
+	],
+	"globalStyle": {
+		"navigationBarTextStyle": "black",
+		"navigationBarTitleText": "车辆状态模块",
+		"navigationBarBackgroundColor": "#F8F8F8",
+		"backgroundColor": "#F8F8F8"
+	}
+}
