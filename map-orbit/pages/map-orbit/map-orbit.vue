@@ -357,9 +357,21 @@
 						var dataUrl = canvas.toDataURL("image/png");
 						this.tcInfo.orbitImage = dataUrl
 						uni.setStorageSync(STORAGE_KEY, this.tcInfo);
-						uni.reLaunch({
-							url: '/pages/car-status-form/car-status-form'
+						// uni.reLaunch({
+						// 	url: '/pages/car-status-form/car-status-form'
+						// })
+						
+						uni.previewImage({
+							current: 0,
+							indicator: "default",
+							longPressActions: true,
+							urls: [dataUrl]
 						})
+						
+						// const a = document.createElement('a')
+						// a.href = dataUrl
+						// a.setAttribute('download', '轨迹图')
+						// a.click()
 						uni.hideLoading();
 						return;
 						
