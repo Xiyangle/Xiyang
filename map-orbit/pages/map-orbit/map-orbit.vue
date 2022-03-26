@@ -45,7 +45,7 @@
 				</view>
 				<!-- 操纵 -->
 				<view class="mp-operations">
-					<view class="mp-operation">
+					<view @click="uploadMapImage()" class="mp-operation">
 						<text class="mo-text">跟着走</text>
 					</view>
 					<view class="mp-operation mo-primary">
@@ -360,53 +360,18 @@
 						// uni.reLaunch({
 						// 	url: '/pages/car-status-form/car-status-form'
 						// })
-						
-						uni.previewImage({
-							current: 0,
-							indicator: "default",
-							longPressActions: true,
-							urls: [dataUrl]
-						})
-						
+						// 预览图片
+						// uni.previewImage({
+						// 	current: 0,
+						// 	indicator: "default",
+						// 	longPressActions: true,
+						// 	urls: [dataUrl]
+						// })
+						// 文件下载
 						// const a = document.createElement('a')
 						// a.href = dataUrl
 						// a.setAttribute('download', '轨迹图')
 						// a.click()
-						uni.hideLoading();
-						return;
-						
-						var myBlob =null
-						var myFile = null
-						canvas.toBlob(function (blob) {
-							myBlob = URL.createObjectURL(blob);
-							console.log(myBlob)
-							myFile = new File([myBlob], "myBlobName");
-							console.log(myFile)
-						})
-						setTimeout(()=>{
-							uni.uploadFile({
-								url: config.baseUrl+'/admin/upload/fileUp',
-								file: myFile,
-								filePath: myBlob,
-								name: 'multipart',
-								header: {
-									'Authori-zation': this.token,
-									'content-type': 'multipart/form-data'
-								},
-								formData: {
-									'model': 'drive',
-									'pid': 1,
-									'transportCode': this.tsCode,
-									'fileName': '轨迹图'
-								},
-								success: (res) => {
-									let data = JSON.parse(res.data)
-									if (data.code === 200) {
-										console.log(data)
-									}
-								}
-							})
-						},1500)
 						uni.hideLoading();
 					});
 				}, 350);
@@ -418,8 +383,43 @@
 				map = null;
 			},
 			
-			/*===============测试区域=============*/
-			
+			//将base64转换为文件
+			dataURLtoFile(dataurl,filename) {
+			    var arr = dataurl.split(','), mime = arr[0].match(/:(.*?);/)[1],
+			        bstr = atob(arr[1]), n = bstr.length, u8arr = new Uint8Array(n);
+			    while(n--){
+			        u8arr[n] = bstr.charCodeAt(n);
+			    }
+			    return new File([u8arr], filename, {type:mime});
+			},
+			// 上传服务器
+			uploadMapImage(){
+				let uploadUrl = this.dataURLtoFile(this.tcInfo.orbitImage,'轨迹图')
+				console.log(uploadUrl)
+				
+				
+				uni.uploadFile({
+					url: config.baseUrl+'/admin/upload/fileUp',
+					filePath: uploadUrl,
+					name: 'multipart',
+					header: {
+						'Authori-zation': this.token,
+						'content-type': 'multipart/form-data'
+					},
+					formData: {
+						'model': 'drive',
+						'pid': 1,
+						'transportCode': this.tsCode,
+						'fileName': '轨迹图'
+					},
+					success: (res) => {
+						let data = JSON.parse(res.data)
+						if (data.code === 200) {
+							console.log(data)
+						}
+					}
+				})
+			}
 		}
 	}
 </script>
