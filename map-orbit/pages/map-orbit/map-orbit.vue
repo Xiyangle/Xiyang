@@ -357,21 +357,7 @@
 						var dataUrl = canvas.toDataURL("image/png");
 						this.tcInfo.orbitImage = dataUrl
 						uni.setStorageSync(STORAGE_KEY, this.tcInfo);
-						// uni.reLaunch({
-						// 	url: '/pages/car-status-form/car-status-form'
-						// })
-						// 预览图片
-						// uni.previewImage({
-						// 	current: 0,
-						// 	indicator: "default",
-						// 	longPressActions: true,
-						// 	urls: [dataUrl]
-						// })
-						// 文件下载
-						// const a = document.createElement('a')
-						// a.href = dataUrl
-						// a.setAttribute('download', '轨迹图')
-						// a.click()
+						this.uploadMapImage()
 						uni.hideLoading();
 					});
 				}, 350);
@@ -382,29 +368,14 @@
 				map && map.destroy();
 				map = null;
 			},
-			
-			//将base64转换为文件
-			dataURLtoFile(dataurl,filename) {
-			    var arr = dataurl.split(','), mime = arr[0].match(/:(.*?);/)[1],
-			        bstr = atob(arr[1]), n = bstr.length, u8arr = new Uint8Array(n);
-			    while(n--){
-			        u8arr[n] = bstr.charCodeAt(n);
-			    }
-			    return new File([u8arr], filename, {type:mime});
-			},
 			// 上传服务器
 			uploadMapImage(){
-				let uploadUrl = this.dataURLtoFile(this.tcInfo.orbitImage,'轨迹图')
-				console.log(uploadUrl)
-				
-				
 				uni.uploadFile({
 					url: config.baseUrl+'/admin/upload/fileUp',
-					filePath: uploadUrl,
+					filePath: this.tcInfo.orbitImage,
 					name: 'multipart',
 					header: {
-						'Authori-zation': this.token,
-						'content-type': 'multipart/form-data'
+						'Authori-zation': this.token
 					},
 					formData: {
 						'model': 'drive',
@@ -414,9 +385,11 @@
 					},
 					success: (res) => {
 						let data = JSON.parse(res.data)
-						if (data.code === 200) {
-							console.log(data)
-						}
+						uni.showToast({
+							title: data.message,
+							icon: 'none',
+							duration: 3000
+						})
 					}
 				})
 			}
