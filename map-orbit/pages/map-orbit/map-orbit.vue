@@ -45,7 +45,7 @@
 				</view>
 				<!-- 操纵 -->
 				<view class="mp-operations">
-					<view @click="uploadMapImage()" class="mp-operation">
+					<view class="mp-operation">
 						<text class="mo-text">跟着走</text>
 					</view>
 					<view class="mp-operation mo-primary">
@@ -54,7 +54,7 @@
 				</view>
 				<view class="mp-operations" v-if="isReady && !isGeneratorWmm">
 					<view class="mp-operation mo-primary mo-full" @click="generatorWmm">
-						<text class="mo-text">拍照</text>
+						<text class="mo-text">生成图片</text>
 					</view>
 				</view>
 			</view>
