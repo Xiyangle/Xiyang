@@ -191,7 +191,7 @@
 				return new Promise(resolve => {
 					if (!map) {
 						AMapLoader.load({
-							"key": "e73cef522ba81a6a09b6fba5807607f9",
+							"key": "d1c52120f93c51dcce52437c00d8683a",
 							"version": "2.0",
 							"plugins": ["AMap.GraspRoad", "AMap.MoveAnimation", "AMap.CustomLayer"]
 						}).then(am => {
