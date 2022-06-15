@@ -1,8 +1,11 @@
 <template>
 	<view class="content">
 		{{userInfo}}
-		<view style="">
+		<view class="zh-cn">
 			<button @click="uploadFile()" type="primary">文件上传</button>
+			<view style="font-size: 40rpx">
+				重庆万佳
+			</view>
 		</view>
 	</view>
 </template>
