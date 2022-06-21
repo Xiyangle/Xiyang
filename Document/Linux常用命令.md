@@ -69,3 +69,7 @@ systemctl stop firewalld.service
 systemctl disable firewalld.service
 ```
 
+```shell
+ps -ef | grep hgz_repo
+kill -9 43860
+```
