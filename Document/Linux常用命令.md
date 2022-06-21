@@ -69,6 +69,7 @@ systemctl stop firewalld.service
 systemctl disable firewalld.service
 ```
 
+###### 查看进程及杀掉进程
 ```shell
 ps -ef | grep hgz_repo
 kill -9 43860
