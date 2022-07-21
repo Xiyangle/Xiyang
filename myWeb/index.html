@@ -59,6 +59,8 @@
     </style>
 </head>
 <body>
+	<button type="button" id="exitBtn" class="btn" onClick="exitFullscreen()">退出全屏</button>
+	<button type="button" id="btn" class="btn" onClick="fullScreen()">全屏</button>  
     <h1>Hello.</h1>
     <p style="font-weight: 500; font-size: 2.2em">My name is Xi Yang.</p>
     <p>
@@ -87,6 +89,17 @@
 
     <!-- IPv6-test.com widget BEGIN -->
     <script type="text/javascript">
+		function fullScreen() {
+		var de = document.documentElement;
+		  if (de.requestFullscreen) {
+			  de.requestFullscreen();
+		  } else if (de.mozRequestFullScreen) {
+			  de.mozRequestFullScreen();
+		  } else if (de.webkitRequestFullScreen) {
+			  de.webkitRequestFullScreen();
+		  }
+		}
+
         var _ipv6test_widget_style = {
             border: "solid 1px #000",
             font_size: "12px",
