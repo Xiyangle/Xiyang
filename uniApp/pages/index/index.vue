@@ -22,6 +22,9 @@
 		},
 		onLoad() {
 			this.login()
+			let strs = 'sasal'
+			let str = strs.replace(/\r|\n/ig,"")
+			console.log(str)
 		},
 		methods: {
 			// 文件上传
