@@ -1,12 +1,10 @@
 <template>
 	<view class="content">
-		{{userInfo}}
-		<view class="zh-cn">
+		{{userInfo.account}}
+		<view style="padding-bottom: 30rpx;">
 			<button @click="uploadFile()" type="primary">文件上传</button>
-			<view style="font-size: 40rpx">
-				重庆万佳
-			</view>
 		</view>
+		<button type="warn">相机</button>
 	</view>
 </template>
 
@@ -22,9 +20,6 @@
 		},
 		onLoad() {
 			this.login()
-			let strs = 'sasal'
-			let str = strs.replace(/\r|\n/ig,"")
-			console.log(str)
 		},
 		methods: {
 			// 文件上传

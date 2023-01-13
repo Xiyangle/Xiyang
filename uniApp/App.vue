@@ -14,11 +14,11 @@
 
 <style>
 	/*每个页面公共css */
-	@font-face {
+	/* @font-face {
 		font-family: 'iconfont';
 		src: url("./static/MaShanZheng-Regular.ttf");
 	}
 	.zh-cn {
 		font-family: iconfont;
-	}
+	} */
 </style>
