@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Document</title>
+</head>
+<body>
+	<canvas id="fireworks"></canvas>
+	<script>
+	// 获取 canvas 元素
+	var canvas = document.getElementById("fireworks");
+	var ctx = canvas.getContext("2d");
+	
+	// 设置 canvas 的宽度和高度
+	canvas.width = window.innerWidth;
+	canvas.height = window.innerHeight;
+	
+	// 定义烟花粒子数组
+	var particles = [];
+	
+	// 定义烟花粒子类
+	function Particle() {
+	  this.x = canvas.width / 2;
+	  this.y = canvas.height / 2;
+	  this.vx = Math.random() * 10 - 5;
+	  this.vy = Math.random() * 10 - 5;
+	  this.radius = Math.random() * 20 + 5;
+	  this.color = "rgb(" + Math.floor(Math.random() * 255) + "," + Math.floor(Math.random() * 255) + "," + Math.floor(Math.random() * 255) + ")";
+	}
+	
+	// 更新烟花粒子位置
+	Particle.prototype.update = function() {
+	  this.x += this.vx;
+	  this.y += this.vy;
+	}
+	
+	// 绘制烟花粒子
+	Particle.prototype.draw = function() {
+	  ctx.beginPath();
+	  ctx.arc(this.x, this.y, this.radius, 0, 2 * Math.PI);
+	  ctx.fillStyle = this.color;
+	  ctx.fill();
+	}
+	
+	// 添加新的烟花粒子
+	function addParticle() {
+	  for (var i = 0; i < 5; i++) {
+	    particles.push(new Particle());
+	  }
+	}
+	
+	// 更新和绘制所有烟花粒子
+	function render() {
+	  ctx.clearRect(0, 0, canvas.width, canvas.height);
+	  for (var i = 0; i < particles.length; i++) {
+	    particles[i].update();
+	    particles[i].draw();
+	  }
+	}
+	
+	// 调用 addParticle 和 render 函数来创建烟花效果
+	addParticle();
+	setInterval(render, 1000/60);
+	</script>
+
+</body>
+</html>

@@ -1,0 +1,1 @@
+<view class="content">{{''+userInfo.account+''}}<view style="padding-bottom:30rpx;"><button type="primary" data-event-opts="{{[['tap',[['uploadFile']]]]}}" bindtap="__e">文件上传</button></view><button type="warn">相机</button></view>

@@ -1,68 +1,75 @@
 <template>
-	<view class="content">
-		{{userInfo.account}}
-		<view style="padding-bottom: 30rpx;">
-			<button @click="uploadFile()" type="primary">文件上传</button>
-		</view>
-		<button type="warn">相机</button>
-	</view>
+  <view class="container">
+    <image src="../../static/logo.png" class="logo"></image>
+    <view class="form">
+      <view class="form-item">
+        <text class="label">Username</text>
+        <input v-model="username" class="input" type="text" placeholder="Enter your username"></input>
+      </view>
+      <view class="form-item">
+        <text class="label">Password</text>
+        <input v-model="password" class="input" type="password" placeholder="Enter your password"></input>
+      </view>
+      <button @click="login" type="primary">Login</button>
+    </view>
+  </view>
 </template>
 
 <script>
-	import $Https from '@/utils/request.js';
-	export default {
-		data() {
-			return {
-				user: '18581293073',
-				pwd: '123456',
-				userInfo: {}
-			}
-		},
-		onLoad() {
-			this.login()
-		},
-		methods: {
-			// 文件上传
-			uploadFile(){
-				uni.chooseImage({
-					success: (res) => {
-						console.log(res)
-						return new Promise((result,reject)=>{
-							uni.uploadFile({
-								url: $Https.common.baseUrl + '/admin/upload/image',
-								filePath: res.tempFilePaths[0],
-								name: 'multipart',
-								header:{
-									'Authori-zation': uni.getStorageSync('token')
-								},
-								formData: {
-									model: 'user',
-									pid: '1'
-								},
-								success: (sudo) => {
-									let data = JSON.parse(sudo.data)
-									console.log(data)
-								}
-							})	
-						})
-					}
-				})
-			},
-			
-			login(){
-				$Https.post('/front/login',{
-					account: this.user,
-					pwd: this.pwd,
-					wxCode: ''
-				},{token:false}).then(res =>{
-					this.userInfo = res.data
-					uni.setStorageSync('token',res.data.token)
-				})
-			}
-		}
-	}
+export default {
+  data() {
+    return {
+      username: '',
+      password: ''
+    }
+  },
+  methods: {
+    login() {
+      if (this.username === '' || this.password === '') {
+        uni.showToast({
+          title: 'Username or password cannot be empty',
+          duration: 2000
+        });
+        return;
+      }
+      // Send login request to server
+    }
+  }
+}
 </script>
 
 <style>
-	
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+}
+
+.logo {
+  width: 200px;
+  height: 200px;
+  margin-bottom: 40px;
+}
+
+.form {
+  width: 80%;
+}
+
+.form-item {
+  margin-bottom: 20px;
+}
+
+.label {
+  font-size: 14px;
+  color: #333;
+  margin-bottom: 10px;
+}
+
+.input {
+  padding: 10px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+}
 </style>
