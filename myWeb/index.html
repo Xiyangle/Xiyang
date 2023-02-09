@@ -7,25 +7,27 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
 	<link rel="icon" type="image/x-icon" href="./images/favicon.ico"/>
     <title>mysticBoy</title>
-    <!-- <link href="https://fonts.googleapis.com/css?family=Rubik:300,500,700" rel="stylesheet"/> -->
+    <link href="https://fonts.googleapis.com/css?family=Rubik:300,500,700" rel="stylesheet"/>
     <style>
-		@font-face {
-			font-family: 'iconfont';
-			src: url("./css/JosefinSans-VariableFont_wght.ttf");
-		}
 		@font-face {
 			font-family: 'myFont';
 			src: url("./css/MaShanZheng-Regular.ttf");
 		}
         body {
-           /* font-family: 'Rubik', -apple-system, BlinkMacSystemFont, 'Segoe UI',
+           font-family: 'Rubik', -apple-system, BlinkMacSystemFont, 'Segoe UI',
             Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue',
-            sans-serif; */
-			font-family: iconfont;
+            sans-serif;
             font-size: calc(10px + 0.33vw);
             -webkit-font-smoothing: antialiased;
             padding: 5vh 10vw;
-            color: #121314;
+            /* color: #121314; */
+			color: 	#F0F8FF;
+			background-image: url('./images/lfbg.jpg');
+			background-size: cover;
+			background-repeat: no-repeat;
+			background-attachment: fixed;
+			background-position: center;
+			height: 100vh;
         }
         h1 {
             font-size: 4.5em;
@@ -40,7 +42,8 @@
         }
         a {
             text-decoration: none;
-            color: #121314;
+            /* color: #121314; */
+			color: #F0FFF0;
             position: relative;
         }
         a:after {
@@ -60,13 +63,11 @@
     </style>
 </head>
 <body>
-	<button type="button" id="exitBtn" class="btn" onClick="exitFullscreen()">退出全屏</button>
-	<button type="button" id="btn" class="btn" onClick="fullScreen()">全屏</button>  
     <h1>Hello.</h1>
     <p style="font-weight: 500; font-size: 2.2em">My name is Xi Yang.</p>
     <p>
         I am an independent software developer
-        and A 42-year-old man born in <a href="./firework.html" target="_blank">1980</a>.
+        and A 43-year-old man born in <a href="./firework.html" target="_blank">1980</a>.
 
         Most of my work is
         open source and publicly available on
@@ -90,17 +91,6 @@
 
     <!-- IPv6-test.com widget BEGIN -->
     <script type="text/javascript">
-		function fullScreen() {
-		var de = document.documentElement;
-		  if (de.requestFullscreen) {
-			  de.requestFullscreen();
-		  } else if (de.mozRequestFullScreen) {
-			  de.mozRequestFullScreen();
-		  } else if (de.webkitRequestFullScreen) {
-			  de.webkitRequestFullScreen();
-		  }
-		}
-
         var _ipv6test_widget_style = {
             border: "solid 1px #000",
             font_size: "12px",
