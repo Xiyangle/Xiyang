@@ -25,10 +25,27 @@
 				y: 0,
 			}
 		},
+		onLoad() {
+			
+		},
+		onPullDownRefresh() {
+			console.log('refresh')
+			this.getRequest()
+			setTimeout((e)=>{
+				uni.stopPullDownRefresh()
+			},2000)
+		},
 		methods: {
 			movableChange(e){
 				this.x = e.detail.x
 				this.y = e.detail.y
+			},
+			getRequest(){
+				uni.request({
+					url: 'https://xiyangle.eu.org'
+				}).then(res =>{
+					console.log(res)
+				})
 			}
 		}
 	}
