@@ -1,60 +1,152 @@
-<!DOCTYPE html>
-<html lang="zh">
+<!doctype html>
+<html lang="en">
 <head>
 	<meta charset="UTF-8">
-	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Document</title>
+	<meta name="viewport"
+		  content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<link rel="icon" type="image/x-icon" href="./images/favicon.ico"/>
+	<title>mysticBoy</title>
+	<link href="https://fonts.googleapis.com/css?family=Rubik:300,500,700" rel="stylesheet"/>
 	<style>
-		#notice {
-		  position: relative;
-		  height: 50px; /* 公告容器的高度 */
-		  overflow: hidden; /* 隐藏超出容器高度的内容 */
-		  background-color: aquamarine;
+		@font-face {
+			font-family: 'myFont';
+			src: url("./css/MaShanZheng-Regular.ttf");
 		}
-		
-		#content {
-		  position: absolute;
-		  bottom: 0;
-		  animation: scroll 10s linear infinite; /* 动画样式 */
+		body {
+			font-family: 'Rubik', -apple-system, BlinkMacSystemFont, 'Segoe UI',
+			Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue',
+			sans-serif;
+			font-size: calc(10px + 0.33vw);
+			-webkit-font-smoothing: antialiased;
+			padding: 5vh 10vw;
+			color: #121314;
 		}
-		
-		@keyframes scroll {
-		  0% {
-		    transform: translateY(0);
-		  }
-		  100% {
-		    transform: translateY(-100%);
-		  }
+		h1 {
+			font-size: 4.5em;
+			font-weight: 500;
+			margin-bottom: 0;
+		}
+		div {
+			font-size: 1.6em;
+			font-weight: 300;
+			line-height: 1.4;
+			max-width: 28em;
+		}
+		p {
+			font-size: 1.6em;
+			font-weight: 300;
+			line-height: 1.4;
+			max-width: 28em;
+		}
+		a {
+			text-decoration: none;
+			color: #121314;
+			position: relative;
+		}
+		a:after {
+			content: '';
+			position: absolute;
+			z-index: -1;
+			top: 60%;
+			left: -0.1em;
+			right: -0.1em;
+			bottom: 0;
+			transition: top 200ms cubic-bezier(0, 0.8, 0.13, 1);
+			background-color: rgba(79, 192, 141, 0.5);
+		}
+		a:hover:after {
+			top: 0%;
+		}
+		span {
+			font-family: myFont;
 		}
 	</style>
 </head>
 <body>
-	<div id="notice">
-	  <div id="content">
-	    <p>这是滚动公告的文本。</p>
-	  </div>
-	</div>
-	
-	<script>
-		// 获取公告容器元素
-		const noticeEl = document.querySelector('#notice');
-		
-		// 获取公告文本
-		const noticeText = noticeEl.querySelector('p').textContent.trim();
-		
-		// 从容器中删除文本
-		noticeEl.querySelector('p').remove();
-		
-		// 创建一个新的 div 元素，并将公告文本添加到其中
-		const contentEl = document.createElement('div');
-		contentEl.id = 'content';
-		contentEl.innerHTML = `<p>${noticeText}</p>`;
-		
-		// 将新 div 元素添加到公告容器中
-		noticeEl.appendChild(contentEl);
+<h1>Hello.</h1>
+<p style="font-weight: 500; font-size: 2.2em">Do you know.</p>
 
-	</script>
-	
+<div>
+	New York is 3 hours ahead of California, <br>
+	<span>纽约时间比加州时间早三个小时，</span> <br>
+	but it does not make California slow. <br>
+	<span>但加州时间并没有变慢。</span>
+</div>
+
+<div>
+	Someone graduated at the age of 22, <br>
+	<span>有人22岁就毕业了，</span> <br>
+	but waited 5 years before securing a good job! <br>
+	<span>但等了五年才找到好的工作！</span>
+</div>
+
+<div>
+	Someone became a CEO at 25, <br>
+	<span>有人25岁就当上</span>CEO， <br>
+	and died at 50. <br>
+	<span>却在50岁去世。</span> <br>
+	While another became a CEO at 50, <br>
+	<span>也有人迟到50岁才当上</span>CEO， <br>
+	and lived to 90 years. <br>
+	<span>然后活到90岁。</span>
+</div>
+
+<div>
+	Someone is still single, <br>
+	<span>有人依然单身，</span> <br>
+	while someone else got married. <br>
+	<span>同时也有人已婚。</span>
+</div>
+
+<div>
+	Obama retires at 55, <br>
+	<span>奥巴马 55 岁就退休，</span> <br>
+	but Trump starts at 70. <br>
+	<span>川普 70 岁才开始当总统。</span>
+</div>
+
+<div>
+	Absolutely everyone in this world works based on their Time Zone. <br>
+	<span>世上每个人本来就有自己的发展时区。</span>
+</div>
+
+<div>
+	People around you might seem to go ahead of you, <br>
+	<span>身边有些人看似走在你前面，</span> <br>
+	some might seem to be behind you. <br>
+	<span>也有人看似走在你后面。</span> <br>
+	But everyone is running their own RACE, in their own TIME. <br>
+	<span>但其实每个人在自己的时区有自己的步程。</span>
+</div>
+
+<div>
+	Don’t envy them or mock them. <br>
+	<span>不用嫉妒或嘲笑他们。</span> <br>
+	They are in their TIME ZONE, and you are in yours! <br>
+	<span>他们都在自己的时区里，你也是！</span>
+</div>
+
+<div>
+	Life is about waiting for the right moment to act. <br>
+	<span>生命就是等待正确的行动时机。</span>
+</div>
+
+<div>
+	So, RELAX. <br>
+	<span>所以，放轻松。</span> <br>
+	You’re not LATE. <br>
+	<span>你没有落后。</span> <br>
+	You’re not EARLY. <br>
+	<span>你没有领先。</span>
+</div>
+
+<div>
+	You are very much ON TIME, and in your TIME ZONE Destiny set up for you. <br>
+	<span>
+		在命运为你安排的属于自己的时区里，一切都准时。
+	</span>
+</div>
+
 </body>
 </html>
