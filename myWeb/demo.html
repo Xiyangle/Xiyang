@@ -5,13 +5,56 @@
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>Document</title>
+	<style>
+		#notice {
+		  position: relative;
+		  height: 50px; /* 公告容器的高度 */
+		  overflow: hidden; /* 隐藏超出容器高度的内容 */
+		  background-color: aquamarine;
+		}
+		
+		#content {
+		  position: absolute;
+		  bottom: 0;
+		  animation: scroll 10s linear infinite; /* 动画样式 */
+		}
+		
+		@keyframes scroll {
+		  0% {
+		    transform: translateY(0);
+		  }
+		  100% {
+		    transform: translateY(-100%);
+		  }
+		}
+	</style>
 </head>
 <body>
+	<div id="notice">
+	  <div id="content">
+	    <p>这是滚动公告的文本。</p>
+	  </div>
+	</div>
+	
 	<script>
-		fetch('https://jsonplaceholder.typicode.com/todos/1')
-		  .then(response => response.json())
-		  .then(data => console.log(data))
-		  .catch(error => console.error('Error:', error));
+		// 获取公告容器元素
+		const noticeEl = document.querySelector('#notice');
+		
+		// 获取公告文本
+		const noticeText = noticeEl.querySelector('p').textContent.trim();
+		
+		// 从容器中删除文本
+		noticeEl.querySelector('p').remove();
+		
+		// 创建一个新的 div 元素，并将公告文本添加到其中
+		const contentEl = document.createElement('div');
+		contentEl.id = 'content';
+		contentEl.innerHTML = `<p>${noticeText}</p>`;
+		
+		// 将新 div 元素添加到公告容器中
+		noticeEl.appendChild(contentEl);
+
 	</script>
+	
 </body>
 </html>
