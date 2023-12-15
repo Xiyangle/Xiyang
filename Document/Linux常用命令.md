@@ -48,6 +48,21 @@ reboot
 rm -rf /etc/iptables && reboot
 ```
 
+###### 系统清理：
+
+```shell
+sudo apt autoremove --purge
+sudo apt clean
+sudo apt autoclean
+sudo apt remove --purge $(dpkg -l | awk '/^rc/ {print $2}')
+sudo journalctl --rotate
+sudo journalctl --vacuum-time=1s
+sudo journalctl --vacuum-size=50M
+sudo apt remove --purge $(dpkg -l | awk '/^ii linux-(image|headers)-[^ ]+/{print $2}' | grep -v $(uname -r | sed 's/-.*//') | xargs)
+```
+
+
+
 ###### 启用ubuntu自带bbr：      
 
 ```shell
