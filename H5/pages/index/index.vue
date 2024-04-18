@@ -5,8 +5,8 @@
 				<!-- 轮播图 -->
 				<swiper indicator-dots autoplay circular>
 					<swiper-item v-for="(item,index) in swiperList" :key="index">
-						<view class="bg-hover-success" style="height: 300rpx;">
-							<image :src="item.url" mode="scaleToFill" style="width: 100%;height: 100%;" @click="previewImage(item)"></image>
+						<view style="height: 300rpx;width: 100%;">
+							<image :src="item.url" mode="aspectFill" style="width: 100%;height: 100%;" @click="previewImage(item)"></image>
 						</view>
 					</swiper-item>
 				</swiper>
