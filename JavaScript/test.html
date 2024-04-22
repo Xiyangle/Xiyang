@@ -13,6 +13,7 @@
 				margin: auto;
 				gap: 10px;
 			}
+
 			input[type='number'],
 			input[type='text'] {
 				width: 100%;
@@ -28,6 +29,10 @@
 			<input type="number" id="consumption" v-model="consumption">
 			<label for="estimatedCost">预估能源成本</label>
 			<input type="text" id="estimatedCost" :value="estimatedCost" disabled>
+
+			<div style="height: 200px;"></div>
+
+			<textarea @paste="handlePaste" placeholder="在这里粘贴Excel数据"></textarea>
 		</div>
 		<script>
 			// Vue实例：
@@ -38,13 +43,25 @@
 						//电价，默认值为0 
 						electricityPrice: 0,
 						//消耗量，默认值为0 
-						consumption: 0 
+						consumption: 0
 					}
 				},
 				computed: {
 					estimatedCost: function() {
 						// 计算预估成本，电价乘以消耗量 
-						return this.electricityPrice * this.consumption; 
+						return this.electricityPrice * this.consumption;
+					}
+				},
+				methods: {
+					handlePaste(event) {
+						event.preventDefault();
+						const clipboardData = event.clipboardData || window.clipboardData;
+						const pastedData = clipboardData.getData('Text');
+						// 将粘贴的数据转换为数组
+						let rows = pastedData.split('\n').map(row => {
+							return row.split('\t').map(cell => cell.trim());
+						})
+						console.log(rows);
 					}
 				}
 			})
