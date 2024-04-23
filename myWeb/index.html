@@ -5,21 +5,62 @@
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-	<link rel="icon" type="image/x-icon" href="./images/favicon.ico"/>
-    <title>mysticBoy</title>
+    <title>Xiyang</title>
     <link href="https://fonts.googleapis.com/css?family=Rubik:300,500,700" rel="stylesheet"/>
     <link rel="stylesheet" type="text/css" href="./css/style.css">
+	<style>
+		body {
+		    font-family: 'Rubik', -apple-system, BlinkMacSystemFont, 'Segoe UI',
+		    Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue',
+		    sans-serif;
+		    font-size: calc(10px + 0.33vw);
+		    -webkit-font-smoothing: antialiased;
+		    padding: 5vh 10vw;
+		    color: #121314;
+		}
+		h1 {
+		    font-size: 4.5em;
+		    font-weight: 500;
+		    margin-bottom: 0;
+		}
+		p {
+		    font-size: 1.6em;
+		    font-weight: 300;
+		    line-height: 1.4;
+		    max-width: 28em;
+		}
+		a {
+		    text-decoration: none;
+		    color: #121314;
+		    position: relative;
+		}
+		a:after {
+		    content: '';
+		    position: absolute;
+		    z-index: -1;
+		    top: 60%;
+		    left: -0.1em;
+		    right: -0.1em;
+		    bottom: 0;
+		    transition: top 200ms cubic-bezier(0, 0.8, 0.13, 1);
+		    background-color: #4FC08D;
+			opacity: 0.5;
+		}
+		a:hover:after {
+		    top: 0%;
+			opacity: 1;
+		}
+		
+	</style>
 </head>
 <body>
     <h1>Hello.</h1>
     <p style="font-weight: 500; font-size: 2.2em">My name is Xi Yang.</p>
     <p>
-        I am an independent software developer
-        and A 43-year-old man born in <a href="home.html" target="_blank">1980</a>.
-
+        I am an independent software developer.
         Most of my work is
         open source and publicly available on
-        <a href="https://github.com/xiyangle" target="_blank">GitHub</a>. You can
+        <a class="a-box" href="https://github.com/xiyangle" target="_blank">GitHub</a>. You can
         follow me on
         <a href="https://twitter.com/xiyangle" target="_blank">Twitter</a>
         where I mostly tweet about JavaScript and frontend technologies.
@@ -31,8 +72,8 @@
         <a href="https://www.zhihu.com" target="_blank" style="font-family: myFont;">知乎</a>.
     </p>
     <p>
-        Outside of programming and helping my wife take care of our two kids,
-        I enjoy video games, NBA,  military fan and read history.
+        Outside of programming
+        I enjoy video games, NBA, and history.
     </p>
 
 
