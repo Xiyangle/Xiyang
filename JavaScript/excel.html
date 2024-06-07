@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Export Table to Excel with CSS</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.17.4/xlsx.full.min.js"></script>
+<style>
+/* 添加你的CSS样式 */
+table {
+  border-collapse: collapse;
+  width: 100%;
+}
+
+th, td {
+  border: 1px solid black;
+  padding: 8px;
+  text-align: left;
+}
+
+th {
+  background-color: #f2f2f2;
+}
+</style>
+</head>
+<body>
+
+<table id="myTable">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Age</th>
+      <th>Country</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>John Doe</td>
+      <td>30</td>
+      <td>USA</td>
+    </tr>
+    <tr>
+      <td>Jane Smith</td>
+      <td>25</td>
+      <td>UK</td>
+    </tr>
+    <tr>
+      <td style="color: aquamarine;">Alice Johnson</td>
+      <td>35</td>
+      <td>Canada</td>
+    </tr>
+  </tbody>
+</table>
+
+<button id="exportButton">Export to Excel</button>
+
+<script>
+const exportButton = document.getElementById('exportButton');
+const table = document.querySelector('table');
+
+exportButton.addEventListener('click', () => {
+  const data = tableToExcelData(table);
+  const workbook = XLSX.utils.book_new();
+  const worksheet = XLSX.utils.aoa_to_sheet(data);
+  XLSX.utils.sheet_add_json(worksheet, data, { header: true });
+  const excelBuffer = XLSX.write(workbook, { type: 'buffer' });
+
+  const blob = new Blob([excelBuffer], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
+  const fileName = 'table-data.xlsx';
+  saveAs(blob, fileName);
+});
+
+function tableToExcelData(table) {
+  const data = [];
+  const headers = Array.from(table.querySelectorAll('thead th')).map(th => th.textContent);
+  data.push(headers);
+
+  for (const row of table.querySelectorAll('tbody tr')) {
+    const rowData = Array.from(row.querySelectorAll('td')).map(td => td.textContent);
+    data.push(rowData);
+  }
+
+  return data;
+}
+
+</script>
+
+</body>
+</html>
