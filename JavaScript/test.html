@@ -32,7 +32,7 @@
 
 			<div style="height: 200px;"></div>
 
-			<textarea @paste="handlePaste" placeholder="在这里粘贴Excel数据"></textarea>
+			<textarea @paste="handlePaste" placeholder="在这里粘贴Excel数据" v-model="textValue"></textarea>
 		</div>
 		<script>
 			// Vue实例：
@@ -43,7 +43,9 @@
 						//电价，默认值为0 
 						electricityPrice: 0,
 						//消耗量，默认值为0 
-						consumption: 0
+						consumption: 0,
+						//粘贴的值
+						textValue: ''
 					}
 				},
 				computed: {
@@ -57,6 +59,8 @@
 						event.preventDefault();
 						const clipboardData = event.clipboardData || window.clipboardData;
 						const pastedData = clipboardData.getData('Text');
+						console.log(pastedData);	
+						this.textValue = pastedData
 						// 将粘贴的数据转换为数组
 						let rows = pastedData.split('\n').map(row => {
 							return row.split('\t').map(cell => cell.trim());
