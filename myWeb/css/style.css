@@ -7,3 +7,31 @@ body {
     padding: 5vh 10vw;
     color: #121314;
 }
+table {
+    border: 1px solid #121314;
+    /*border-collapse: collapse;*/
+    font-weight: 300;
+}
+td {
+    /*border: 2px solid #121314;*/
+    padding: 3px;
+    background-color: #f0f0f0;
+}
+.ipt {
+    height: 1.8rem;
+    border-radius: 0;
+}
+.btn-primary {
+    color: #fff;
+    background-color: #337ab7;
+    border-color: #2e6da4;
+    cursor: pointer;
+    height: 1.8rem;
+    line-height: 1.8rem;
+    padding: 2px;
+    border: 1px solid transparent;
+    transition: background-color 1s;
+}
+.btn-primary:hover {
+    background-color: #4FC08D;
+}

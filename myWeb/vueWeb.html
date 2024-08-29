@@ -9,11 +9,81 @@
     <link href="https://fonts.googleapis.com/css?family=Rubik:300,500,700" rel="stylesheet"/>
     <link rel="stylesheet" type="text/css" href="./css/style.css">
     <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <script src="./utils/axios.min.js"></script>
+    <script src="./utils/request.js"></script>
 </head>
 <body>
     <div id="app">
-        {{message}}
-        <button @click="msg()">Btn</button>
+        <div style="margin-bottom: 5px;display: flex;align-items: center;">
+            <input v-model="ipInput" placeholder="IP Address" class="ipt">
+            <div @click="ipLookup()" class="btn-primary">IP Lookup</div>
+        </div>
+        <table>
+            <tr>
+                <td>IP Version</td>
+                <td>{{ipData.version}}</td>
+            </tr>
+            <tr>
+                <td>IP Address</td>
+                <td>{{ipData.ip}}</td>
+            </tr>
+            <tr>
+                <td>City</td>
+                <td>{{ipData.city}}</td>
+            </tr>
+            <tr>
+                <td>Region</td>
+                <td>{{ipData.region}}</td>
+            </tr>
+            <tr>
+                <td>Country</td>
+                <td>{{ipData.country_code}} | {{ipData.country_name}}</td>
+            </tr>
+            <tr>
+                <td>Country Capital</td>
+                <td>{{ipData.country_capital}}</td>
+            </tr>
+            <tr>
+                <td>Country Tld</td>
+                <td>{{ipData.country_tld}}</td>
+            </tr>
+            <tr>
+                <td>Postal Code</td>
+                <td>{{ipData.postal}}</td>
+            </tr>
+            <tr>
+                <td>European Union</td>
+                <td>{{ipData.in_eu}}</td>
+            </tr>
+            <tr>
+                <td>Latitude/Longitude</td>
+                <td>{{ipData.latitude}} , {{ipData.longitude}}</td>
+            </tr>
+            <tr>
+                <td>Time Zone</td>
+                <td>{{ipData.timezone}}({{ipData.utc_offset}})</td>
+            </tr>
+            <tr>
+                <td>Calling Code</td>
+                <td>{{ipData.country_calling_code}}</td>
+            </tr>
+            <tr>
+                <td>Currency</td>
+                <td>{{ipData.currency}} | {{ipData.currency_name}}</td>
+            </tr>
+            <tr>
+                <td>Languages</td>
+                <td>{{ipData.languages}}</td>
+            </tr>
+            <tr>
+                <td>ASN</td>
+                <td>{{ipData.asn}}</td>
+            </tr>
+            <tr>
+                <td>Org</td>
+                <td>{{ipData.org}}</td>
+            </tr>
+        </table>
     </div>
     <script src="./js/vue3.js"></script>
 </body>

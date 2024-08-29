@@ -1,10 +1,8 @@
-let apiUrl = 'https://svm.lingyaoauto.com/wj/proxyWmes-test'
-//https://svm.lingyaoauto.com/wj/proxyWmes-test
-//http://localhost:8080/wj/proxyWmes-test
+let baseURL = 'https://ipapi.co'
 
 // 创建axios实例
 const $axios = axios.create({
-    baseURL: apiUrl, // 你的API地址
+    baseURL: baseURL, // 你的API地址
     timeout: 10000, // 请求超时时间
 })
 // 请求拦截器
@@ -14,7 +12,7 @@ $axios.interceptors.request.use(
         return config
     },
     error => {
-        console.log('request' + error)
+        console.log('请求拦截器' + error)
         return Promise.reject(error)
     }
 )
@@ -31,8 +29,8 @@ $axios.interceptors.response.use(
         }
     },
     error => {
-        console.log('response' + error)
-        let {message} = error
+        console.log('响应拦截器' + error)
+        let { message } = error
         if (message == "Network Error") {
             message = "后端接口连接异常";
         } else if (message.includes("timeout")) {

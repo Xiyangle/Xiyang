@@ -1,13 +1,30 @@
 const app = Vue.createApp({
     data(){
         return {
-            message: 'Hello Vue.js'
+            ipInput: '',
+            ipData: {}
         }
     },
+    mounted() {
+        this.getApiInfo()
+    },
     methods: {
-        msg() {
-            this.message = 'Hello Vue3.js'
+        ipLookup() {
+            $axios({
+                method: 'get',
+                url: this.ipInput+'/json'
+            }).then(res =>{
+                this.ipData = res
+            })
         },
+        getApiInfo() {
+            $axios({
+                method: 'get',
+                url:  '/json'
+            }).then(res =>{
+                this.ipData = res
+            })
+        }
     }
 })
 const vm = app.mount('#app')
