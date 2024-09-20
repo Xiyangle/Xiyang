@@ -6,66 +6,6 @@
     <title>Document</title>
 </head>
 <body>
-<script>
 
-  let names = ["JavaScript",'Java','Python', 'C++']
-
-  //slice只要给它传入一个start/end，那么对于同一个数组来说，它会给我们返回确定的值
-  //slice函数本身是不会修改原来的数组
-  //slice -> this
-  let newNames1 = names.slice(0,2)
-  console.log("newNames1",newNames1)
-  console.log("names",names)
-
-  //splice是会修改原来的数组对象本身的，所以它不是纯函数
-  let newNames2 = names.splice(2)
-  console.log("newNames2",newNames2)
-  console.log("names",names)
-
-  let str = 'HelloWorld'
-
-  let nStr = str.slice(0,5)
-  console.log('nStr',nStr)
-  console.log('str',str)
-
-
-
-  var ws = new WebSocket('ws://' + window.location.host +
-      '/jb-server-page?reloadMode=RELOAD_ON_SAVE&'+
-      'referrer=' + encodeURIComponent(window.location.pathname));
-  ws.onmessage = function (msg) {
-      console.log(msg)
-      if (msg.data === 'reload') {
-          window.location.reload();
-      }
-      if (msg.data.startsWith('update-css ')) {
-          var messageId = msg.data.substring(11);
-          var links = document.getElementsByTagName('link');
-          for (var i = 0; i < links.length; i++) {
-              var link = links[i];
-              if (link.rel !== 'stylesheet') continue;
-              var clonedLink = link.cloneNode(true);
-              var newHref = link.href.replace(/(&|\?)jbUpdateLinksId=\d+/, "$1jbUpdateLinksId=" + messageId);
-              if (newHref !== link.href) {
-                  clonedLink.href = newHref;
-              }
-              else {
-                  var indexOfQuest = newHref.indexOf('?');
-                  if (indexOfQuest >= 0) {
-                      // to support ?foo#hash
-                      clonedLink.href = newHref.substring(0, indexOfQuest + 1) + 'jbUpdateLinksId=' + messageId + '&' +
-                          newHref.substring(indexOfQuest + 1);
-                  }
-                  else {
-                      clonedLink.href += '?' + 'jbUpdateLinksId=' + messageId;
-                  }
-              }
-              link.replaceWith(clonedLink);
-          }
-      }
-  }
-
-
-</script>
 </body>
 </html>
