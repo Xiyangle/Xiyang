@@ -2,13 +2,14 @@ let baseURL = 'https://ipapi.co'
 
 // 创建axios实例
 const $axios = axios.create({
-    baseURL: baseURL, // 你的API地址
+    baseURL: baseURL, //'http://10.109.2.36:9527/wj/proxyWmes-test-99999', // 你的API地址
     timeout: 10000, // 请求超时时间
 })
 // 请求拦截器
 $axios.interceptors.request.use(
     config => {
         //config.headers.Authorization = 'Bearer ' + localStorage.getItem('token')
+        config.headers['Content-Type'] = 'application/json;charset=utf-8'
         return config
     },
     error => {

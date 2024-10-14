@@ -1,30 +1,33 @@
-const app = Vue.createApp({
-    data(){
-        return {
-            ipInput: '',
-            ipData: {}
+const { createApp, ref } = Vue
+
+createApp({
+    setup() {
+        const ipInput = ref('')
+        const ipData = ref({})
+
+        function ipLookup() {
+            $axios({
+                method: 'get',
+                url: ipInput.value + '/json'
+            }).then(res => {
+                ipData.value = res
+            })
         }
-    },
-    mounted() {
-        this.getApiInfo()
-    },
-    methods: {
-        ipLookup() {
+
+        function getApiInfo() {
             $axios({
                 method: 'get',
-                url: this.ipInput+'/json'
-            }).then(res =>{
-                this.ipData = res
+                url: '/json'
+            }).then(res => {
+                ipData.value = res
             })
-        },
-        getApiInfo() {
-            $axios({
-                method: 'get',
-                url:  '/json'
-            }).then(res =>{
-                this.ipData = res
-            })
+        }
+        getApiInfo()
+
+        return {
+            ipInput,
+            ipData,
+            ipLookup
         }
     }
-})
-const vm = app.mount('#app')
+}).mount('#app')
