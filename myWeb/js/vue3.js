@@ -1,33 +1,33 @@
-const { createApp, ref } = Vue
-
-createApp({
-    setup() {
-        const ipInput = ref('')
-        const ipData = ref({})
-
-        function ipLookup() {
+const App = {
+    data() {
+        return {
+            message: "Hello Element Plus",
+            ipInput: '',
+            ipData: {}
+        }
+    },
+    created() {
+        this.getApiInfo()
+    },
+    methods: {
+        ipLookup() {
             $axios({
                 method: 'get',
-                url: ipInput.value + '/json'
+                url: this.ipInput + '/json'
             }).then(res => {
-                ipData.value = res
+                this.ipData = res
             })
-        }
-
-        function getApiInfo() {
+        },
+        getApiInfo() {
             $axios({
                 method: 'get',
                 url: '/json'
             }).then(res => {
-                ipData.value = res
+                this.ipData = res
             })
         }
-        getApiInfo()
-
-        return {
-            ipInput,
-            ipData,
-            ipLookup
-        }
     }
-}).mount('#app')
+};
+const app = Vue.createApp(App);
+app.use(ElementPlus);
+app.mount("#app");

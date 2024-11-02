@@ -7,13 +7,20 @@ body {
     padding: 5vh 10vw;
     color: #121314;
 }
+.resizer {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    width: 10px;
+    cursor: ew-resize;
+    background-color: #ccc;
+}
 table {
     border: 1px solid #121314;
-    /*border-collapse: collapse;*/
     font-weight: 300;
 }
 td {
-    /*border: 2px solid #121314;*/
     padding: 3px;
     background-color: #f0f0f0;
 }

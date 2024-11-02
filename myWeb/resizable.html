@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resizable Sidebar in Vue.js</title>
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            font-family: Arial, sans-serif;
+        }
+        #app {
+            display: flex;
+            height: 100%;
+        }
+        .sidebar {
+            width: 250px;
+            background-color: #2c3e50;
+            color: white;
+            padding: 20px;
+            box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+            position: relative;
+        }
+        .sidebar h2 {
+            margin-top: 0;
+        }
+        .sidebar ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        .sidebar li {
+            margin: 10px 0;
+        }
+        .sidebar a {
+            color: white;
+            text-decoration: none;
+            font-size: 18px;
+        }
+        .resizer {
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            right: 0;
+            width: 10px;
+            cursor: ew-resize;
+            background-color: #ccc;
+        }
+        .main-content {
+            flex-grow: 1;
+            padding: 20px;
+            background-color: #ecf0f1;
+        }
+    </style>
+</head>
+<body>
+<div id="app">
+    <div class="sidebar" :style="{ width: `${sidebarWidth}px` }">
+        <h2>Menu</h2>
+        <ul>
+            <li><a href="#" @click="selectPage('home')">Home</a></li>
+            <li><a href="#" @click="selectPage('about')">About</a></li>
+            <li><a href="#" @click="selectPage('contact')">Contact</a></li>
+        </ul>
+        <div class="resizer" @mousedown="startResize"></div>
+    </div>
+    <div class="main-content">
+        <component :is="currentPage"></component>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
+<script>
+    Vue.component('home', {
+        template: `
+        <div>
+          <h1>Home Page</h1>
+          <p>Welcome to the home page!</p>
+        </div>
+      `,
+    });
+
+    Vue.component('about', {
+        template: `
+        <div>
+          <h1>About Page</h1>
+          <p>This is the about page.</p>
+        </div>
+      `,
+    });
+
+    Vue.component('contact', {
+        template: `
+        <div>
+          <h1>Contact Page</h1>
+          <p>You can contact us here.</p>
+        </div>
+      `,
+    });
+
+    new Vue({
+        el: '#app',
+        data: {
+            sidebarWidth: 250,
+            currentPage: 'home',
+            isResizing: false,
+        },
+        methods: {
+            startResize(event) {
+                this.isResizing = true;
+                document.addEventListener('mousemove', this.resize);
+                document.addEventListener('mouseup', this.stopResize);
+            },
+            resize(event) {
+                if (this.isResizing) {
+                    this.sidebarWidth = event.clientX;
+                }
+            },
+            stopResize() {
+                this.isResizing = false;
+                document.removeEventListener('mousemove', this.resize);
+                document.removeEventListener('mouseup', this.stopResize);
+            },
+            selectPage(page) {
+                this.currentPage = page;
+            },
+        },
+    });
+</script>
+</body>
+</html>
