@@ -11,12 +11,17 @@
     <script src="./utils/vue3.global.js"></script>
     <script src="./utils/axios.min.js"></script>
     <script src="./utils/request.js"></script>
+    <!-- import CSS -->
+    <link rel="stylesheet" href="./css/index.css">
+    <!-- import JavaScript -->
+    <script src="./utils/index.full.js"></script>
 </head>
 <body>
     <div id="app">
+        <div>{{message}}</div>
         <div style="margin-bottom: 5px;display: flex;align-items: center;">
-            <input v-model="ipInput" placeholder="IP Address" class="ipt">
-            <div @click="ipLookup()" class="btn-primary">IP Lookup</div>
+            <el-input v-model="ipInput" style="width: 240px" placeholder="IP Address" clearable></el-input>
+            <el-button type="success" round plain @click="ipLookup()">IP Lookup</el-button>
         </div>
         <table>
             <tr>
