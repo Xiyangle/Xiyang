@@ -60,3 +60,9 @@ git branch -M master
 git push -u origin master
 ```
 
+#### Oracle DD
+
+```shell
+apt update
+apt install snapd
+snap install oracle-cloud-agent --classic
