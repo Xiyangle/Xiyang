@@ -8,7 +8,7 @@ const $axios = axios.create({
 // 请求拦截器
 $axios.interceptors.request.use(
     config => {
-        //config.headers.Authorization = 'Bearer ' + localStorage.getItem('token')
+        // config.headers.Authorization = 'Bearer ' + localStorage.getItem('token')
         config.headers['Content-Type'] = 'application/json;charset=utf-8'
         return config
     },
