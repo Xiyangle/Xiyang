@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MysticBoy | 交互式个人星际站</title>
+  <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+  <style>
+      /* 基础重置与深色极客背景 */
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+      body {
+          font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+          background: #050505;
+          background: linear-gradient(135deg, #0a0a0a, #1a2a3a, #0f171e);
+          color: #ffffff;
+          height: 100vh;
+          width: 100vw;
+          overflow: hidden;
+          perspective: 1200px;
+      }
+
+      #app {
+          width: 100%;
+          height: 100%;
+          position: relative;
+      }
+
+      /* 顶部信息 - 固定在上方 */
+      .header {
+          position: absolute;
+          top: 15%;
+          left: 50%;
+          transform: translateX(-50%);
+          text-align: center;
+          width: 100%;
+          z-index: 10;
+      }
+      .header h1 {
+          font-size: 3.5rem;
+          letter-spacing: 4px;
+          text-shadow: 0 0 15px #00d2ff, 0 0 30px #3a7bd5;
+          margin-bottom: 15px;
+      }
+      .header p { font-size: 1.2rem; color: #a8b2d1; letter-spacing: 2px; }
+
+      /* 3D 旋转相册容器 - 强制屏幕正中心 */
+      .scene {
+          width: 220px;
+          height: 300px;
+          position: absolute;
+          top: 50%;
+          left: 50%;
+          transform: translate(-50%, -50%);
+      }
+
+      /* 核心动画引擎 */
+      .carousel {
+          width: 100%; height: 100%; position: absolute;
+          transform-style: preserve-3d;
+          /* 默认一直保持旋转动画 */
+          animation: rotateAlbum 24s infinite linear;
+      }
+
+      /* 鼠标悬停 或 被 Vue 标记为暂停状态时，冻结动画帧 */
+      .carousel:hover,
+      .carousel.is-paused {
+          animation-play-state: paused;
+      }
+
+      /* 单个相框样式 */
+      .carousel-cell {
+          position: absolute; width: 220px; height: 300px; left: 0; top: 0;
+          border: 2px solid rgba(0, 210, 255, 0.5);
+          border-radius: 12px; overflow: hidden;
+          box-shadow: 0 0 15px rgba(0, 210, 255, 0.3);
+          transition: all 0.4s ease;
+          background: #111; cursor: pointer;
+      }
+      .carousel-cell img {
+          width: 100%; height: 100%; object-fit: cover; opacity: 0.7;
+          transition: opacity 0.4s, transform 0.4s;
+      }
+      .carousel-cell:hover {
+          border-color: #00d2ff;
+          box-shadow: 0 0 30px #00d2ff, inset 0 0 20px #00d2ff;
+          transform: scale(1.05);
+      }
+      .carousel-cell:hover img { opacity: 1; transform: scale(1.1); }
+
+      /* 卡片上的简略标题 */
+      .card-title {
+          position: absolute; bottom: 0; width: 100%;
+          background: rgba(0, 0, 0, 0.7);
+          padding: 10px; text-align: center;
+          font-size: 1rem; font-weight: bold; color: #00d2ff;
+          backdrop-filter: blur(5px);
+      }
+
+      /* 全息模态框 */
+      .modal-overlay {
+          position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
+          background: rgba(0, 0, 0, 0.8);
+          backdrop-filter: blur(8px);
+          display: flex; align-items: center; justify-content: center;
+          z-index: 100;
+          opacity: 0; animation: fadeIn 0.3s forwards;
+      }
+      .modal-content {
+          background: linear-gradient(135deg, rgba(10, 20, 30, 0.9), rgba(0, 0, 0, 0.95));
+          border: 1px solid #00d2ff;
+          box-shadow: 0 0 40px rgba(0, 210, 255, 0.4), inset 0 0 20px rgba(0, 210, 255, 0.2);
+          border-radius: 15px; width: 450px; max-width: 90%; padding: 30px;
+          position: relative; transform: translateY(20px);
+          animation: slideUp 0.3s forwards;
+      }
+      .modal-close {
+          position: absolute; top: 15px; right: 20px;
+          font-size: 1.5rem; color: #00d2ff; cursor: pointer; transition: 0.3s;
+      }
+      .modal-close:hover { color: #fff; text-shadow: 0 0 10px #00d2ff; }
+      .modal-title { font-size: 1.8rem; margin-bottom: 15px; color: #fff; text-shadow: 0 0 10px #00d2ff; }
+      .modal-desc { font-size: 1rem; color: #a8b2d1; line-height: 1.6; margin-bottom: 20px; }
+      .modal-tags span {
+          display: inline-block; background: rgba(0, 210, 255, 0.15);
+          border: 1px solid #00d2ff; padding: 4px 10px; margin: 0 8px 8px 0;
+          border-radius: 15px; font-size: 0.85rem;
+      }
+
+      /* 动画定义 */
+      @keyframes rotateAlbum {
+          from { transform: rotateY(0deg) rotateX(-5deg); }
+          to { transform: rotateY(360deg) rotateX(-5deg); }
+      }
+      @keyframes fadeIn { to { opacity: 1; } }
+      @keyframes slideUp { to { transform: translateY(0); } }
+  </style>
+</head>
+<body>
+
+<div id="app">
+  <div class="header">
+    <h1>MysticBoy Space</h1>
+    <p>{{ subtitle }}</p>
+  </div>
+
+  <div class="scene">
+    <div class="carousel" :class="{ 'is-paused': isPaused }">
+      <div class="carousel-cell"
+           v-for="(item, index) in portfolioItems"
+           :key="item.id"
+           :style="{ transform: `rotateY(${index * 60}deg) translateZ(280px)` }"
+           @click="openModal(item)">
+        <img :src="item.image" :alt="item.title">
+        <div class="card-title">{{ item.title }}</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal-overlay" v-if="activeItem" @click.self="closeModal">
+    <div class="modal-content">
+      <span class="modal-close" @click="closeModal">&times;</span>
+      <h2 class="modal-title">{{ activeItem.title }}</h2>
+      <p class="modal-desc">{{ activeItem.description }}</p>
+      <div class="modal-tags">
+        <span v-for="tag in activeItem.tags" :key="tag">{{ tag }}</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  const { createApp, ref, onMounted } = Vue;
+
+  createApp({
+    setup() {
+      // 将 isRotating 替换为 isPaused 逻辑
+      const isPaused = ref(false);
+      const activeItem = ref(null);
+      const subtitle = ref('Initializing system...');
+
+      const portfolioItems = ref([
+        {
+          id: 1,
+          title: 'Enterprise Backend',
+          description: '深耕企业级系统架构设计。专注于 Java 后端与 Spring Boot 微服务生态，擅长处理 MAT 堆转储进行性能调优。在数据结构设计中，习惯使用随机化业务流水号替代传统的 1-indexed 序列索引，以提升安全性与扩展性。',
+          tags: ['Java', 'Spring Boot', 'JVM Tuning'],
+          image: 'https://images.unsplash.com/photo-1555066931-4365d14bab8c?auto=format&fit=crop&w=400&q=80'
+        },
+        {
+          id: 2,
+          title: 'Network Routing',
+          description: '致力于打造稳定安全的底层网络环境。精通 Xray 节点配置，针对复杂网络架构，采用 Windows 系统作为 Server 端进行反向代理部署，并通过 aaPanel 与 Cloudflare 实现全自动化域名与证书管理。',
+          tags: ['Xray', 'Nginx', 'Cloudflare', 'aaPanel'],
+          image: 'https://images.unsplash.com/photo-1558494949-ef010cbdcc31?auto=format&fit=crop&w=400&q=80'
+        },
+        {
+          id: 3,
+          title: 'Cloud Infrastructure',
+          description: '多云环境实战部署经验。熟练在 Oracle Cloud、AWS 及 Google Cloud Platform 等不同平台上构建和维护基础设施，包括 ARM 架构服务器的编译优化与 VPC 网络搭建。',
+          tags: ['Oracle Cloud', 'AWS EC2', 'Linux'],
+          image: 'https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&w=400&q=80'
+        },
+        {
+          id: 4,
+          title: 'Feline Research',
+          description: '工作之外的疗愈时光。热衷于研究本土猫咪（狸花猫、虎斑猫）的习性，特别是针对它们不同月份的季节性掉毛规律有着深入的“田野调查”经验。',
+          tags: ['Dragon Li', 'Tabby Cat', 'Pet Care'],
+          image: 'https://images.unsplash.com/photo-1514888286974-6c03e2ca1dba?auto=format&fit=crop&w=400&q=80'
+        },
+        {
+          id: 5,
+          title: 'Sports Analytics',
+          description: '硬核篮球迷。日常追踪 NBA 最新赛事动态，对 Stephen Curry、Wembanyama 和 Jokic 等球员的进阶统计数据及赛场表现保持敏锐的关注。',
+          tags: ['NBA', 'Basketball Stats', 'Sports'],
+          image: 'https://images.unsplash.com/photo-1546519638-68e109498ffc?auto=format&fit=crop&w=400&q=80'
+        },
+        {
+          id: 6,
+          title: 'Market Trends',
+          description: '理性投资者。密切关注宏观经济走向，定期分析各大银行 App 上的定期黄金定投产品的买卖点差、手续费模型及黄金价格走势。',
+          tags: ['Finance', 'Gold Market', 'Investment'],
+          image: 'https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?auto=format&fit=crop&w=400&q=80'
+        }
+      ]);
+
+      // 交互逻辑：打开模态框时锁定动画暂停状态
+      const openModal = (item) => {
+        activeItem.value = item;
+        isPaused.value = true;
+      };
+
+      // 交互逻辑：关闭模态框时解除动画暂停锁定
+      const closeModal = () => {
+        activeItem.value = null;
+        isPaused.value = false;
+      };
+
+      // 简单的打字机效果
+      onMounted(() => {
+        const finalSubtitle = 'Turning Coffee into Code & Ideas into Reality';
+        let i = 0;
+        subtitle.value = '';
+        const typing = setInterval(() => {
+          if (i < finalSubtitle.length) {
+            subtitle.value += finalSubtitle.charAt(i);
+            i++;
+          } else {
+            clearInterval(typing);
+          }
+        }, 50);
+      });
+
+      return {
+        isPaused,
+        activeItem,
+        subtitle,
+        portfolioItems,
+        openModal,
+        closeModal
+      };
+    }
+  }).mount('#app');
+</script>
+</body>
+</html>
