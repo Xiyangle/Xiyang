@@ -1,4 +1,4 @@
-let baseURL = 'https://ipapi.co'
+let baseURL = 'https://my.ippure.com/v1'
 
 // 创建axios实例
 const $axios = axios.create({

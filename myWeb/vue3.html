@@ -25,8 +25,12 @@
         </div>
         <table>
             <tr>
-                <td>IP Version</td>
-                <td>{{ipData.version}}</td>
+                <td>AsOrganization</td>
+                <td>{{ipData.asOrganization}}</td>
+            </tr>
+            <tr>
+                <td>ASN</td>
+                <td>{{ipData.asn}}</td>
             </tr>
             <tr>
                 <td>IP Address</td>
@@ -41,24 +45,20 @@
                 <td>{{ipData.region}}</td>
             </tr>
             <tr>
-                <td>Country</td>
-                <td>{{ipData.country_code}} | {{ipData.country_name}}</td>
-            </tr>
-            <tr>
-                <td>Country Capital</td>
-                <td>{{ipData.country_capital}}</td>
-            </tr>
-            <tr>
-                <td>Country Tld</td>
-                <td>{{ipData.country_tld}}</td>
+                <td>RegionCode</td>
+                <td>{{ipData.regionCode}}</td>
             </tr>
             <tr>
                 <td>Postal Code</td>
-                <td>{{ipData.postal}}</td>
+                <td>{{ipData.postalCode}}</td>
             </tr>
             <tr>
-                <td>European Union</td>
-                <td>{{ipData.in_eu}}</td>
+                <td>Country</td>
+                <td>{{ipData.country}}</td>
+            </tr>
+            <tr>
+                <td>CountryCode</td>
+                <td>{{ipData.countryCode}}</td>
             </tr>
             <tr>
                 <td>Latitude/Longitude</td>
@@ -66,29 +66,18 @@
             </tr>
             <tr>
                 <td>Time Zone</td>
-                <td>{{ipData.timezone}}({{ipData.utc_offset}})</td>
+                <td>{{ipData.timezone}}</td>
             </tr>
             <tr>
-                <td>Calling Code</td>
-                <td>{{ipData.country_calling_code}}</td>
-            </tr>
-            <tr>
-                <td>Currency</td>
-                <td>{{ipData.currency}} | {{ipData.currency_name}}</td>
-            </tr>
-            <tr>
-                <td>Languages</td>
-                <td>{{ipData.languages}}</td>
-            </tr>
-            <tr>
-                <td>ASN</td>
-                <td>{{ipData.asn}}</td>
-            </tr>
-            <tr>
-                <td>Org</td>
-                <td>{{ipData.org}}</td>
+                <td>UserAgent</td>
+                <td>{{ipData.userAgent}}</td>
             </tr>
         </table>
+        <div style="margin-top: 30px;">
+            <a href="https://ippure.com" target="_blank">
+                <img src="https://my.ippure.com/v1/card" alt="访客IP信息卡片" title=点击查看IP信息" />
+            </a>
+        </div>
         <div style="margin-top: 30px;width: 370px;">
             <img src="https://ping0.cc/img1">
         </div>

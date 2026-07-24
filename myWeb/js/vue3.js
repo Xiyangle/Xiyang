@@ -13,7 +13,7 @@ const App = {
         ipLookup() {
             $axios({
                 method: 'get',
-                url: this.ipInput + '/json'
+                url: this.ipInput + '/info'
             }).then(res => {
                 this.ipData = res
             })
@@ -21,7 +21,7 @@ const App = {
         getApiInfo() {
             $axios({
                 method: 'get',
-                url: '/json'
+                url: '/info'
             }).then(res => {
                 this.ipData = res
             })
