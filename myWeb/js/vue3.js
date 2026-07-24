@@ -7,7 +7,7 @@ const App = {
         }
     },
     created() {
-        this.getApiInfo()
+
     },
     methods: {
         ipLookup() {

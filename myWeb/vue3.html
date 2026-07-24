@@ -19,6 +19,7 @@
 <body>
     <div id="app">
         <div>{{message}}</div>
+        <!--
         <div style="margin-bottom: 5px;display: flex;align-items: center;">
             <el-input v-model="ipInput" style="width: 240px" placeholder="IP Address" clearable></el-input>
             <el-button type="success" round plain @click="ipLookup()">IP Lookup</el-button>
@@ -73,14 +74,13 @@
                 <td>{{ipData.userAgent}}</td>
             </tr>
         </table>
-        <div style="margin-top: 30px;width: 370px;">
+        -->
+        <div style="margin-top: 30px;">
             <a href="https://ippure.com" target="_blank">
                 <img src="https://my.ippure.com/v1/card" alt="访客IP信息卡片" title=点击查看IP信息" />
             </a>
         </div>
-        <div style="margin-top: 30px;width: 370px;">
-            <img src="https://ping0.cc/img1">
-        </div>
+
     </div>
     <script src="./js/vue3.js"></script>
 </body>
